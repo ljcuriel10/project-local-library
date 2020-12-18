@@ -10,7 +10,7 @@ function booksBorrowedCount(books) {
 const sorter = arr => arr.sort((countA,countB)=> countB.count-countA.count );
 
 function getMostCommonGenres(books) {
-  let popularGenres = books.reduce((acc, book)=> ((acc[acc.findIndex(d => d.name === book.genre)] || acc[acc.push({name: book.genre,count:0})-1]).count++,acc),[]);
+  let popularGenres = books.reduce((acc, book)=> ((acc[acc.findIndex( index => index.name === book.genre)] || acc[acc.push({name: book.genre,count:0})-1]).count++,acc),[]);
   return sorter(popularGenres).slice(0,5);
 }
 
