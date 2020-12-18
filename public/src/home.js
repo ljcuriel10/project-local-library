@@ -19,6 +19,16 @@ function getMostPopularBooks(books) {
   return sorter(popularBooks).slice(0,5);
 }
 
+
+function AuthorNameById(authors, id){
+  let authorName = "";
+ authors.forEach(author => {
+   if (author.id == id)  authorName = `${author.name.first} ${author.name.last}`
+})
+  return authorName;
+}
+
+
 function getMostPopularAuthors(books, authors) {
   let result = [];
   let filteredBooks = books.reduce((acc,book) => {
@@ -28,22 +38,10 @@ function getMostPopularAuthors(books, authors) {
     return acc;
   }, {});
 
-  let filteredAuth = authors.reduce((acc, author) => {
-    acc[author.id] = Object.values(author.name).join(' ')
-    return acc;
-  }, {});
-
-  for (let key in filteredBooks){
-    let bookId = key;
-    let name = '';
-    for(let key in filteredAuth){
-      if(key == bookId){
-        name = `${filteredAuth[key]}`
-      }
-    }
+  for (const key in filteredBooks){
     const value = filteredBooks[key];
     let newObj = {};
-    newObj['name'] = name;
+    newObj['name'] = AuthorNameById(authors, parseInt(key));
     newObj['count'] = value;
     result.push(newObj);
   }
